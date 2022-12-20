@@ -1,5 +1,8 @@
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
+
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
       if (shouldResolve) {
@@ -12,18 +15,36 @@ function createPromise(position, delay) {
 
   promise
     .then(({ position, delay }) => {
-      console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+      Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`, {
+        timeout: 5000,
+      });
     })
     .catch(({ position, delay }) => {
-      console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+      Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`),
+        {
+          timeout: 5000,
+        };
     });
 }
 
 const form = document.querySelector('.form');
-form.addEventListener('click', clickOnForm);
+
+form.addEventListener('submit', clickOnForm);
 
 function clickOnForm(e) {
   e.preventDefault();
-  const elements = ({ delay, amount, step } = e.currentTarget);
-  const delayTime = delay.value;
+  const {
+    elements: { delay, step, amount },
+  } = e.currentTarget;
+
+  let delayTime = Number(delay.value);
+  const delayStep = Number(step.value);
+
+  for (let i = 1; i <= amount.value; i += 1) {
+    console.log(i);
+    if (i !== 1) {
+      delayTime += delayStep;
+    }
+    createPromise(i, delayTime);
+  }
 }
