@@ -42,7 +42,7 @@ function clickOnForm(e) {
 
   for (let i = 1; i <= amount.value; i += 1) {
     console.log(i);
-    console.log(i);
+    
     if (i !== 1) {
       delayTime += delayStep;
     }
