@@ -20,7 +20,7 @@ const options = {
     let currentTime = Date.now();
     const chosenTime = selectedDates[0].getTime();
     if (currentTime >= chosenTime) {
-      return 'Please choose a date in the future';
+      window.alert('Please choose a date in the future');
     }
     return (refs.startButton.disabled = false);
   },
@@ -60,18 +60,11 @@ const timer = {
   },
 };
 
-function addLeadingZero(value) {
-  if (value.length >= 3) {
-    return;
-  }
-  return String(value).padStart(2, '0');
-}
-
 function updateInformation({ days, hours, minutes, seconds }) {
-  refs.days.textContent = days;
-  refs.hours.textContent = hours;
-  refs.minutes.textContent = minutes;
-  refs.seconds.textContent = seconds;
+  refs.days.textContent = days.toString().padStart(2, '0');
+  refs.hours.textContent = hours.toString().padStart(2, '0');
+  refs.minutes.textContent = minutes.toString().padStart(2, '0');
+  refs.seconds.textContent = seconds.toString().padStart(2, '0');
 }
 
 function convertMs(ms) {
