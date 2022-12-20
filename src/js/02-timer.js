@@ -21,12 +21,13 @@ const options = {
     const chosenTime = selectedDates[0].getTime();
     if (currentTime >= chosenTime) {
       window.alert('Please choose a date in the future');
+      refs.startButton.disabled = true;
+      return;
     }
-    return (refs.startButton.disabled = false);
+    refs.startButton.disabled = false;
   },
 };
 
-refs.startButton.disabled = true;
 refs.startButton.addEventListener('click', startTimer);
 function startTimer() {
   timer.start();
